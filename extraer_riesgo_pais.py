@@ -6,12 +6,11 @@ from selenium import webdriver
 def extraer_riesgo_pais_rava():
     # Configuración de Chromium
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")  # Ejecutar sin abrir ventana
-    options.add_argument("--disable-gpu")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
 
-    # Usamos executable_path porque Selenium 3 no soporta service=
-    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
+driver = webdriver.Chrome(executable_path="/home/runner/bin/chromedriver", options=options)
 
     try:
         driver.get("https://www.rava.com/perfil/riesgo%20pais")
@@ -34,3 +33,4 @@ def extraer_riesgo_pais_rava():
 
 if __name__ == "__main__":
     extraer_riesgo_pais_rava()
+
