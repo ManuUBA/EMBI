@@ -1,0 +1,36 @@
+name: Actualizar Riesgo País
+
+# Esto corre cada hora
+on:
+  schedule:
+    - cron: "0 * * * *"  # Cada hora en UTC
+  workflow_dispatch:   # Permite ejecutarlo manualmente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python extraer_riesgo_pais.py
+
+      - name: Commit JSON
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add riesgo_pais.json
+          git commit -m "Actualizar JSON de Riesgo País" || echo "No changes to commit"
+          git push
