@@ -25,24 +25,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install selenium webdriver-manager
 
-      # 4️⃣ Instalar Chrome y Chromedriver
-      - name: Install Chrome & Chromedriver
+      # 4️⃣ Instalar Google Chrome (estable)
+      - name: Install Chrome
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip xvfb
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
-          # Descargar Chromedriver compatible con Chrome
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-          wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip || true
-          unzip -o /tmp/chromedriver.zip -d $HOME/bin || true
-          chmod +x $HOME/bin/chromedriver
-          export PATH=$HOME/bin:$PATH
 
-      # 5️⃣ Ejecutar scraper
+      # 5️⃣ Ejecutar scraper usando webdriver-manager
       - name: Run scraper
         run: |
-          export PATH=$HOME/bin:$PATH
           python extraer_riesgo_pais.py
 
       # 6️⃣ Commit y push del JSON generado
