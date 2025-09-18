@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  scraper:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,16 +20,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install selenium webdriver-manager
 
-      - name: Install Chrome and Chromedriver
+      - name: Install Chrome & Chromedriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4
-          # Instalar Chrome
+          sudo apt-get install -y wget unzip xvfb
+          # Chrome estable
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
-          # Instalar Chromedriver que coincida con la versión de Chrome
+          # Chromedriver compatible
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
           wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip
           unzip /tmp/chromedriver.zip -d $HOME/bin
