@@ -28,6 +28,7 @@ EMBI/
 ├── riesgo_pais.json # Processed EMBI data
 ├── requirements.txt # Python dependencies
 └── README.md # Project documentation
+
 ---
 
 ## Installation
