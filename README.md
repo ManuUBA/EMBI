@@ -51,7 +51,3 @@ python extraer_riesgo_pais.py
 ```
 
 The extracted data will be saved in riesgo_pais.json.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE
