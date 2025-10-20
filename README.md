@@ -1,4 +1,4 @@
-# 📊 EMBI – Country Risk Index
+# 📊 EMBI – Country Risk Index - Argentine - API
 
 **Repository:** [EMBI](https://github.com/ManuUBA/EMBI)  
 **Language:** Python  
