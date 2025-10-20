@@ -50,4 +50,4 @@ Run the main script to extract the current EMBI data:
 python extraer_riesgo_pais.py
 ```
 
-The extracted data will be saved in riesgo_pais.json.
+The extracted data will be saved in `riesgo_pais.json`.
