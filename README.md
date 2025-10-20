@@ -29,8 +29,6 @@ EMBI/
 ├── requirements.txt # Python dependencies
 └── README.md # Project documentation
 
----
-
 ## Installation
 
 1. Clone the repository:
