@@ -23,14 +23,10 @@ The project allows users to extract, process, and save EMBI data in a structured
 
 ## Repository Structure
 
-EMBI/
-├── extraer_riesgo_pais.py   # Main script to extract current EMBI values from Rava
-├── actualizar_readme.py     # Optional script to update README with current EMBI value
-├── riesgo_pais.json          # Processed JSON file storing the latest EMBI value
-├── requirements.txt          # Python dependencies
-├── README.md                 # Project documentation
-└── LICENSE                   # MIT License
-
+- `EMBI.py` → Main script to extract current EMBI values from Rava
+- `EMBI.json` → Processed JSON file storing the latest EMBI value
+- `requirements.txt` → Librerías necesarias para ejecutar el script.  
+- `README.md` → Documentación del repositorio
 
 ## Installation
 
