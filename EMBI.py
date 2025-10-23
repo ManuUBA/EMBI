@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
-def extraer_riesgo_pais_rava():
+def get_EMBI():
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -16,22 +16,23 @@ def extraer_riesgo_pais_rava():
 
     try:
         driver.get("https://www.rava.com/perfil/riesgo%20pais")
-        time.sleep(5)  # Esperar que cargue la página
+        time.sleep(5)  # Wait page load
 
         body_text = driver.find_element("tag name", "body").text
 
         match = re.search(r"RIESGO PAIS\s+Argentina\s+([\d.,]+)", body_text, re.IGNORECASE)
         if match:
-            riesgo = match.group(1).replace('.', '').replace(',', '.')
-            print(f"🟢 Riesgo País: {riesgo}")
+            EMBI = match.group(1).replace('.', '').replace(',', '.')
+            print(f"EMBI: {EMBI}")
 
-            # Guardar en JSON para GitHub Actions o WordPress
-            with open("riesgo_pais.json", "w", encoding="utf-8") as f:
-                json.dump({"valor": riesgo}, f)
+            # Save JSON
+            with open("EMBI.json", "w", encoding="utf-8") as f:
+                json.dump({"EMBI:": riesgo}, f)
         else:
-            print("🔴 No se pudo encontrar el valor del Riesgo País.")
+            print("EMBI was not found")
     finally:
         driver.quit()
 
 if __name__ == "__main__":
-    extraer_riesgo_pais_rava()
+    get_EMBI()
+
