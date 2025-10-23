@@ -27,7 +27,7 @@ def get_EMBI():
 
             # Save JSON
             with open("EMBI.json", "w", encoding="utf-8") as f:
-                json.dump({"EMBI:": riesgo}, f)
+                json.dump({"EMBI:": EMBI}, f)
         else:
             print("EMBI was not found")
     finally:
@@ -35,4 +35,5 @@ def get_EMBI():
 
 if __name__ == "__main__":
     get_EMBI()
+
 
