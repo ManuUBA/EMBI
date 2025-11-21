@@ -2,50 +2,44 @@ name: Actualizar Riesgo País
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Ejecutar cada hora
-  workflow_dispatch:  # Permite ejecución manual
+    - cron: "0 * * * *"  
+  workflow_dispatch:
 
 jobs:
   scraper:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Clonar el repositorio
       - uses: actions/checkout@v4
 
-      # 2️⃣ Configurar Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: "3.9"
 
-      # 3️⃣ Instalar dependencias de Python
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install selenium webdriver-manager
-
-      # 4️⃣ Instalar Google Chrome estable y ChromeDriver
+      # 1️⃣ Instalar Google Chrome
       - name: Install Google Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb
+          sudo apt-get install -y wget
           wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
           google-chrome --version
 
-      # 5️⃣ Verificar instalación de dependencias
-      - name: Verify installation
-        run: |
-          python --version
-          google-chrome --version
+      # 2️⃣ Instalar ChromeDriver compatible con Chrome instalado
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
 
-      # 6️⃣ Ejecutar el scraper (usa webdriver-manager, sin path manual)
+      # 3️⃣ Instalar dependencias Python
+      - name: Install Python dependencies
+        run: |
+          pip install selenium
+
+      # 4️⃣ Ejecutar scraper SIN xvfb
       - name: Run scraper
-        run: |
-          xvfb-run -a python EMBI.py
+        run: python EMBI.py
 
-      # 7️⃣ Commit y push del JSON generado (solo si cambió)
+      # 5️⃣ Commit si cambió el JSON
       - name: Commit JSON
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -58,4 +52,3 @@ jobs:
             git push
           else
             echo "Sin cambios en EMBI.json"
-          fi
