@@ -2,7 +2,7 @@ name: Actualizar Riesgo País
 
 on:
   schedule:
-    - cron: "0 * * * *"  
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -17,7 +17,6 @@ jobs:
         with:
           python-version: "3.9"
 
-      # 1️⃣ Instalar Google Chrome
       - name: Install Google Chrome
         run: |
           sudo apt-get update
@@ -26,20 +25,13 @@ jobs:
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
           google-chrome --version
 
-      # 2️⃣ Instalar ChromeDriver compatible con Chrome instalado
-      - name: Install ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-
-      # 3️⃣ Instalar dependencias Python
       - name: Install Python dependencies
         run: |
-          pip install selenium
+          pip install undetected-chromedriver selenium
 
-      # 4️⃣ Ejecutar scraper SIN xvfb
       - name: Run scraper
         run: python EMBI.py
 
-      # 5️⃣ Commit si cambió el JSON
       - name: Commit JSON
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,4 +43,4 @@ jobs:
             git commit -m "Actualizar JSON de Riesgo País"
             git push
           else
-            echo "Sin cambios en EMBI.json"
+            echo "Sin cambios"
